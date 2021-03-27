@@ -9,4 +9,4 @@ Implementation and analysis a variety of search algorithms to solve an S-Puzzle.
 | Paul M | 27486340 |
 | Jeremie C  | Content Cell  |
 | Shirwa W  | 40062525  |
-| Jeff B  | Content Cell  |
+| Jeff B  | 27415834  |
