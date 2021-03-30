@@ -1,4 +1,5 @@
 from DepthFirst import DepthFirstSearch
+from IterativeDeep import IterativeDeepening
 from node import Node
 import numpy
 
@@ -13,7 +14,7 @@ def app():
             input = eval(createGraph(input_line))
             start_node = Node(input, None, 0)
 
-            dfs = DepthFirstSearch(goal_state,start_node)
+            dfs = IterativeDeepening(goal_state,start_node)
             dfs.start()
     except FileNotFoundError:
         print("File does not exist!")
