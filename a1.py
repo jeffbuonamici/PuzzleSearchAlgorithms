@@ -1,26 +1,26 @@
 from node import Node
 from copy import deepcopy
+from queue import PriorityQueue
 import time
 
-class IterativeDeepening:
+class AStar1:
     # setup starting node (random puzzle state)
 
-    def __init__(self, goal, start_node, max_search_depth):
+    def __init__(self, goal, start_node):
         self.open_nodes = []
         self.visited_nodes = []
         self.goal_state = goal
         self.start_node = start_node
-        self.open_nodes.append(start_node)
-        self.max_search_depth = max_search_depth
+        self.open_nodes = PriorityQueue()
+        self.open_nodes.put((start_node.fscore, start_node))
 
     def start(self):
-        print("\nGOAL")
+        print("GOAL")
         print(self.goal_state)
-        print("Starting Node")
-        print(self.open_nodes[0].state)
+        #print(self.open_nodes[0].state)
         timeout = time.time() +(60 * 1)
         while self.open_nodes:
-            current = self.open_nodes.pop()
+            current = self.open_nodes.get()[1]
             self.visited_nodes.append(current)
 
             if time.time() > timeout:
@@ -31,20 +31,15 @@ class IterativeDeepening:
 
             # check if node is goal node
             if(current.state == self.goal_state):
-                print('Solution found')
+                print('done')
                 self.report(current, False , self.clean(self.start_node.state))
                 break
                 # end
             
             children = self.get_children(current)
             for child in children:
-                if self.unique(child.state) and child.depth <= self.max_search_depth:
-                    self.open_nodes.append(child)
-            if not self.open_nodes:
-                self.max_search_depth += 1
-                self.visited_nodes.clear()
-                self.open_nodes.append(self.start_node)
-
+                if self.unique(child.state):
+                    self.open_nodes.put((child.fscore, child))
         print("END")
         
       
@@ -112,8 +107,8 @@ class IterativeDeepening:
     def unique(self, node_state):
         open_states = []
         visited_states = []
-        for open_node in self.open_nodes:
-            open_states.append(open_node.state) 
+        for open_node in self.open_nodes.queue:
+            open_states.append(open_node[1].state) 
         for visited_node in self.visited_nodes:
             visited_states.append(visited_node.state) 
 
@@ -125,14 +120,30 @@ class IterativeDeepening:
     def create_nodes(self, new_states, parent_node):
         new_nodes = []
         for state in new_states:
-            new_nodes.append(Node(state, parent_node, parent_node.depth + 1, 0))
+            f = self.get_manhattan_distance(state)
+            new_nodes.append(Node(state, parent_node, parent_node.depth + 1, f))
         return new_nodes
 
+    def get_manhattan_distance(self, state):
+        f = 0
+        for y_val in range(len(state)):
+            for x_val in range(len(state[y_val])):
+                vals = self.get_goal_coordinates(state[y_val][x_val])
+                f += abs(x_val - vals[0]) + abs(y_val - vals[1])
+        return f
+
+    def get_goal_coordinates(self, value):
+        for y_val in range(len(self.goal_state)):
+            for x_val in range(len(self.goal_state[y_val])):
+                if(value == self.goal_state[y_val][x_val]):
+                    return x_val, y_val
+        return 0, 0
+
     def report(self, node, is_timeout, filename):
-        sol = open("deepSolution" + filename + ".txt", "w")
-        sol.write("--------- deepSolution.txt ---------\n")
-        search = open("deepSearch" + filename + ".txt", "w")
-        search.write("--------- deepSearch.txt ---------\n")
+        sol = open("manhattanSolution" + filename + ".txt", "w")
+        sol.write("--------- dfsSolution.txt ---------\n")
+        search = open("manhattanSearch" + filename + ".txt", "w")
+        search.write("--------- dfsSearch.txt ---------\n")
        
         if(is_timeout):
             sol.write("No Solution")

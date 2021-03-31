@@ -118,7 +118,7 @@ class DepthFirstSearch:
     def create_nodes(self, new_states, parent_node):
         new_nodes = []
         for state in new_states:
-            new_nodes.append(Node(state, parent_node, parent_node.depth + 1))
+            new_nodes.append(Node(state, parent_node, parent_node.depth + 1, 0))
         return new_nodes
 
     def report(self, node, is_timeout, filename):
