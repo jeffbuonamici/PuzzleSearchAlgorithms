@@ -11,36 +11,10 @@ class IterativeDeepening:
         self.goal_state = goal
         self.start_node = start_node
         self.open_nodes.append(start_node)
+        self.max_search_depth = 1
 
     def start(self):
-        print("GOAL")
-        print(self.goal_state)
-        print(self.open_nodes[0].state)
-        timeout = time.time() +(60 * 1)
-        while self.open_nodes:
-            current = self.open_nodes.pop(0)
-            self.visited_nodes.append(current)
-
-            if time.time() > timeout:
-                print("timeout")
-                self.report(current, True, self.clean(self.start_node.state))
-                break
-           
-
-            # check if node is goal node
-            if(current.state == self.goal_state):
-                print('done')
-                self.report(current, False , self.clean(self.start_node.state))
-                break
-                # end
-            
-            children = self.get_children(current)
-            for child in children:
-                if self.unique(child.state):
-                    self.open_nodes.append(child)
-        print("END")
-        
-      
+        DepthFirstSearch.start(self, self.max_search_depth)
 
     def get_children(self, parent_node):
         state = parent_node.state
@@ -114,7 +88,6 @@ class IterativeDeepening:
             return True     
         return False
 
-    
     def create_nodes(self, new_states, parent_node):
         new_nodes = []
         for state in new_states:
@@ -136,9 +109,6 @@ class IterativeDeepening:
             for node in self.visited_nodes:
                 search.write(str(node.state) + "\n")
         
-        
-        
-
     def get_path_to_root(self, node):
         path = []
         while node is not None:

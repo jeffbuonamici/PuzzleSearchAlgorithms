@@ -11,12 +11,25 @@ class DepthFirstSearch:
         self.goal_state = goal
         self.start_node = start_node
         self.open_nodes.append(start_node)
+        self.max_search_depth = 0;
 
-    def start(self):
+    def start(self, max_search_depth):
         print("GOAL")
         print(self.goal_state)
         print(self.open_nodes[0].state)
         timeout = time.time() +(60 * 1)
+        if max_search_depth == 0 :
+            self.dfsSearch(max_search_depth, timeout)
+        elif max_search_depth > 0:
+            self.dfsSearch(max_search_depth, timeout)
+            max_search_depth += 1
+            open_nodes.clear()
+            visited_nodes.clear
+            self.__init__
+
+        print("END")
+        
+    def dfsSearch(self, threshold, timeout):
         while self.open_nodes:
             current = self.open_nodes.pop()
             self.visited_nodes.append(current)
@@ -26,21 +39,26 @@ class DepthFirstSearch:
                 self.report(current, True, self.clean(self.start_node.state))
                 break
            
-
             # check if node is goal node
             if(current.state == self.goal_state):
                 print('done')
                 self.report(current, False , self.clean(self.start_node.state))
                 break
                 # end
-            
+
             children = self.get_children(current)
-            for child in children:
-                if self.unique(child.state):
-                    self.open_nodes.append(child)
-        print("END")
-        
-      
+            if threshold == 0:
+                for child in children:
+                    if self.unique(child.state):
+                        child.parent = current
+                        child.depth = current.depth + 1
+                        self.open_nodes.append(child)
+            elif threshold > 0:
+                for child in children:
+                    if self.unique(child.state) and child.depth <= threshold:
+                        child.parent = current
+                        child.depth = current.depth + 1
+                        self.open_nodes.append(child)
 
     def get_children(self, parent_node):
         state = parent_node.state
@@ -137,8 +155,6 @@ class DepthFirstSearch:
                 search.write(str(node.state) + "\n")
         
         
-        
-
     def get_path_to_root(self, node):
         path = []
         while node is not None:
