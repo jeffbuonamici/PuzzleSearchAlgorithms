@@ -5,20 +5,22 @@ import time
 class IterativeDeepening:
     # setup starting node (random puzzle state)
 
-    def __init__(self, goal, start_node):
+    def __init__(self, goal, start_node, max_search_depth):
         self.open_nodes = []
         self.visited_nodes = []
         self.goal_state = goal
         self.start_node = start_node
         self.open_nodes.append(start_node)
+        self.max_search_depth = max_search_depth
 
     def start(self):
-        print("GOAL")
+        print("\nGOAL")
         print(self.goal_state)
+        print("Starting Node")
         print(self.open_nodes[0].state)
         timeout = time.time() +(60 * 1)
         while self.open_nodes:
-            current = self.open_nodes.pop(0)
+            current = self.open_nodes.pop()
             self.visited_nodes.append(current)
 
             if time.time() > timeout:
@@ -29,15 +31,20 @@ class IterativeDeepening:
 
             # check if node is goal node
             if(current.state == self.goal_state):
-                print('done')
+                print('Solution found')
                 self.report(current, False , self.clean(self.start_node.state))
                 break
                 # end
             
             children = self.get_children(current)
             for child in children:
-                if self.unique(child.state):
+                if self.unique(child.state) and child.depth <= self.max_search_depth:
                     self.open_nodes.append(child)
+            if not self.open_nodes:
+                self.max_search_depth += 1
+                self.visited_nodes.clear()
+                self.open_nodes.append(self.start_node)
+
         print("END")
         
       
