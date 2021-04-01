@@ -1,106 +1,74 @@
 from node import Node
-from copy import deepcopy
+import util
 import time
 
 class DepthFirstSearch:
     # setup starting node (random puzzle state)
+    def __init__(self,goal_state,lines):
+        self.goal_state = goal_state
+        self.lines = lines
+        open("DepthFirstSearch_analysis.txt", "w")
 
-    def __init__(self, goal, start_node):
+    def reset(self, start_node):
         self.open_nodes = []
         self.visited_nodes = []
-        self.goal_state = goal
         self.start_node = start_node
         self.open_nodes.append(start_node)
 
-    def start(self):
-        print("GOAL")
-        print(self.goal_state)
-        print(self.open_nodes[0].state)
+    def search(self):
+        total_search = 0
+        total_sol = 0
+        total_time = 0
+        total_cost = 0
+        for input_line in self.lines:
+            input = eval(util.createGraph(input_line))
+            start_node = Node(input, None, 0, 0)
+            self.reset(start_node)
+            sol, search, depth, time = self.run()
+            total_search += search
+            total_sol += sol
+            total_time += time
+            total_cost += depth
+        a = open("DepthFirstSearch_analysis.txt", "a")
+        a.write("Average solution length : "+str(total_sol/len(self.lines))+"\n")
+        a.write("Average search length : "+str(total_search/len(self.lines))+"\n")
+        a.write("Average time : "+str(total_time/len(self.lines))+"\n")
+        a.write("Average cost : "+str(total_cost/len(self.lines))+"\n")
+        a.write("Total solution length : "+str(total_sol)+"\n")
+        a.write("Total search length : "+str(total_search)+"\n")
+        a.write("Total time : "+str(total_time)+"\n")
+        a.write("Total cost : "+str(total_cost)+"\n")
+        
+    def run(self):
+        print("START")
+        print(self.start_node.state)
         timeout = time.time() +(60 * 1)
+        start_time = time.time()
         while self.open_nodes:
             current = self.open_nodes.pop()
             self.visited_nodes.append(current)
 
             if time.time() > timeout:
-                print("timeout")
                 self.report(current, True, self.clean(self.start_node.state))
                 break
            
 
             # check if node is goal node
             if(current.state == self.goal_state):
-                print('done')
                 self.report(current, False , self.clean(self.start_node.state))
                 break
                 # end
             
-            children = self.get_children(current)
+            children = util.get_children(self,current)
             for child in children:
                 if self.unique(child.state):
                     self.open_nodes.append(child)
+        end_time = time.time()
+
+        a = open("DepthFirstSearch_analysis.txt", "a")
+        a.write("State: " + str(self.start_node.state) +", Solution length: "+str(len(self.get_path_to_root(current)))+", Search length: "+str(len(self.visited_nodes))+", Cost: "+str(current.depth)+", Time: "+str(end_time-start_time)+"\n")
         print("END")
-        
-      
-
-    def get_children(self, parent_node):
-        state = parent_node.state
-        new_states = []
-        row_index = 0
-        col_index = 0
-        for row in state:
-            col_index = 0
-            for col in row:
-                if(row_index < len(state)-1):
-                    new_state = self.swap_down(
-                        parent_node, row_index, col_index)
-                    if new_state not in new_states:
-                        new_states.append(new_state)
-                if(row_index > 1):
-                    new_state = self.swap_up(parent_node, row_index, col_index)
-                    if new_state not in new_states:
-                        new_states.append(new_state)
-                if(col_index > 1):
-                    new_state = self.swap_left(
-                        parent_node, row_index, col_index)
-                    if new_state not in new_states:
-                        new_states.append(new_state)
-                if(col_index < len(row)-1):
-                    new_state = self.swap_right(
-                        parent_node, row_index, col_index)
-                    if new_state not in new_states:
-                        new_states.append(new_state)
-               
-                col_index += 1
-            row_index += 1
-        return self.create_nodes(new_states, parent_node)
-
-    def swap_up(self, parent_node, row, col):
-        new_state = deepcopy(parent_node.state)
-        temp = new_state[row][col]
-        new_state[row][col] = new_state[row-1][col]
-        new_state[row-1][col] = temp
-        return new_state
-
-    def swap_left(self, parent_node, row, col):
-        new_state = deepcopy(parent_node.state)
-        temp = new_state[row][col]
-        new_state[row][col] = new_state[row][col-1]
-        new_state[row][col-1] = temp
-        return new_state
-
-    def swap_down(self, parent_node, row, col):
-        new_state = deepcopy(parent_node.state)
-        temp = new_state[row][col]
-        new_state[row][col] = new_state[row+1][col]
-        new_state[row+1][col] = temp
-        return new_state
-
-    def swap_right(self, parent_node, row, col):
-        new_state = deepcopy(parent_node.state)
-        temp = new_state[row][col]
-        new_state[row][col] = new_state[row][col+1]
-        new_state[row][col+1] = temp
-        return new_state
+        return (len(self.get_path_to_root(current))), (len(self.visited_nodes)), (current.depth), (end_time-start_time)
 
     def unique(self, node_state):
         open_states = []
@@ -122,9 +90,9 @@ class DepthFirstSearch:
         return new_nodes
 
     def report(self, node, is_timeout, filename):
-        sol = open("dfsSolution" + filename + ".txt", "w")
+        sol = open("output/dfsSolution" + filename + ".txt", "w")
         sol.write("--------- dfsSolution.txt ---------\n")
-        search = open("dfsSearch" + filename + ".txt", "w")
+        search = open("output/dfsSearch" + filename + ".txt", "w")
         search.write("--------- dfsSearch.txt ---------\n")
        
         if(is_timeout):

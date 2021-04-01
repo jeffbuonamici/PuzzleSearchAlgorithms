@@ -1,0 +1,28 @@
+State: [[1, 9, 3], [5, 7, 2], [8, 6, 4]], Solution length: 3087, Search length: 3087, Cost: 3086, Time: 60.01457977294922
+State: [[2, 8, 3], [4, 6, 5], [1, 9, 7]], Solution length: 3047, Search length: 3047, Cost: 3046, Time: 60.04043960571289
+State: [[3, 7, 9], [2, 5, 6], [1, 8, 4]], Solution length: 3125, Search length: 3125, Cost: 3124, Time: 60.04173040390015
+State: [[4, 6, 9], [1, 2, 5], [8, 3, 7]], Solution length: 3133, Search length: 3133, Cost: 3132, Time: 60.02722716331482
+State: [[5, 4, 3], [7, 2, 9], [8, 1, 6]], Solution length: 3075, Search length: 3075, Cost: 3074, Time: 60.037168979644775
+State: [[6, 8, 2], [9, 7, 5], [3, 1, 4]], Solution length: 3073, Search length: 3073, Cost: 3072, Time: 60.03362250328064
+State: [[7, 9, 3], [4, 6, 1], [8, 5, 2]], Solution length: 2945, Search length: 2945, Cost: 2944, Time: 60.035279989242554
+State: [[8, 1, 3], [7, 5, 2], [6, 4, 9]], Solution length: 2963, Search length: 2963, Cost: 2962, Time: 60.006690979003906
+State: [[9, 8, 7], [6, 5, 4], [3, 2, 1]], Solution length: 2899, Search length: 2899, Cost: 2898, Time: 60.05248832702637
+State: [[8, 2, 4], [1, 5, 6], [3, 9, 7]], Solution length: 3101, Search length: 3101, Cost: 3100, Time: 60.05038785934448
+State: [[7, 3, 9], [4, 5, 6], [2, 1, 8]], Solution length: 3135, Search length: 3135, Cost: 3134, Time: 60.01334595680237
+State: [[6, 4, 9], [7, 5, 8], [3, 2, 1]], Solution length: 3065, Search length: 3065, Cost: 3064, Time: 60.045159578323364
+State: [[5, 2, 3], [4, 1, 6], [8, 9, 7]], Solution length: 3040, Search length: 3040, Cost: 3039, Time: 60.04000926017761
+State: [[4, 6, 3], [1, 2, 5], [7, 8, 9]], Solution length: 2984, Search length: 2984, Cost: 2983, Time: 60.04242515563965
+State: [[3, 7, 1], [4, 9, 6], [5, 2, 8]], Solution length: 3052, Search length: 3052, Cost: 3051, Time: 60.03345203399658
+State: [[2, 8, 3], [1, 5, 6], [4, 9, 7]], Solution length: 3071, Search length: 3071, Cost: 3070, Time: 60.04118466377258
+State: [[1, 7, 3], [2, 5, 6], [8, 4, 9]], Solution length: 3033, Search length: 3033, Cost: 3032, Time: 60.027228355407715
+State: [[6, 7, 9], [4, 5, 1], [8, 3, 2]], Solution length: 3091, Search length: 3091, Cost: 3090, Time: 60.04203510284424
+State: [[4, 2, 7], [3, 8, 9], [5, 6, 1]], Solution length: 3079, Search length: 3079, Cost: 3078, Time: 60.035242319107056
+State: [[2, 1, 6], [4, 5, 3], [8, 7, 9]], Solution length: 3087, Search length: 3087, Cost: 3086, Time: 60.014737129211426
+Average solution length : 3054.25
+Average search length : 3054.25
+Average time : 60.03372175693512
+Average cost : 3053.25
+Total solution length : 61085
+Total search length : 61085
+Total time : 1200.6744351387024
+Total cost : 61065
