@@ -1,2 +1,0 @@
---------- deepSearch.txt ---------
-No Solution
