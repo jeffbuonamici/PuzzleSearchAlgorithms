@@ -4,7 +4,7 @@ Implementation and analysis a variety of search algorithms to solve an S-Puzzle.
 
 <h3>Participants</h3>
 
-URL: https://github.com/jeffbuonamici/PuzzleSearchAlgorithms/
+URL: https://github.com/jeffbuonamici/PuzzleSearchAlgorithms.git
 
 | Name  | Student ID |
 | ------------- | ------------- |
