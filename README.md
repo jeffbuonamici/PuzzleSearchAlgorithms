@@ -17,5 +17,7 @@ URL: https://github.com/jeffbuonamici/PuzzleSearchAlgorithms.git
 <h3>How to Run the Application</h3>
 
 Enter your desired inputs into input.txt
+
 If your input is not a 3x3 matrix, then you will have to manually change the goal_state in the code. This can be found in app.py.
+
 Run the application by typing 'python app.py' in the terminal.
