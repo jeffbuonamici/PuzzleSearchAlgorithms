@@ -7,6 +7,6 @@ Implementation and analysis a variety of search algorithms to solve an S-Puzzle.
 | Name  | Student ID |
 | ------------- | ------------- |
 | Paul M | 27486340 |
-| Jeremie C  | Content Cell  |
+| Jeremie C  | 40066210  |
 | Shirwa W  | 40062525  |
 | Jeff B  | 27415834  |
